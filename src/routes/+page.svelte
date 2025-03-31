@@ -1,18 +1,21 @@
 <script>
     import Header from "../components/Header.svelte";
-    import Hub from "../components/Hub.svelte";
     import Parallax from "../components/Parallax.svelte";
+    import TextOver from "../components/TextOver.svelte";
 </script>
     
     
     <Header />
     
-    <Hub />
+    <TextOver />
 
     <div class="part1">
         <Parallax/>
         <div class="fondgradient"></div>
     </div>
+
+
+    
     
     <style>
         .fondgradient{

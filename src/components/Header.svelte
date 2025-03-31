@@ -1,41 +1,70 @@
 <script>
+    import { onMount, onDestroy } from 'svelte';
 
+    let lastScrollY = 0;
+    let isHidden = false;
+
+    // Détection du scroll et gestion du header
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY) {
+            isHidden = true;
+        } else {
+            isHidden = false;
+        }
+
+        lastScrollY = currentScrollY;
+    };
+
+    onMount(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        onDestroy(() => {
+            window.removeEventListener('scroll', handleScroll);
+        });
+    });
 </script>
 
-<header>
-    <div>
+<header class:hide={isHidden}>
+    <nav>
         <ul>
-            <div class="elem"></div>
-            <div class="elem"></div>
-            <div class="elem"></div>
-            <div class="elem"></div>
-            <div class="elem"></div>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/projets">Projets</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
-    </div>
+    </nav>
 </header>
 
 <style>
-    div{
+    header {
         position: fixed;
         top: 0;
-        z-index: 999;
+        left: 0;
         width: 100%;
-        height: 100px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        transition: transform 0.3s ease;
+        z-index: 1000;
     }
 
-    ul{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 20%;
+    .hide {
+        transform: translateY(-100%);
+    }
 
-        .elem{
-            position: relative;
-            height: 50px;
-            width: 50px;
-            background-color: white;
-        }
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
     }
 </style>
